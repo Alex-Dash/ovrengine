@@ -1,6 +1,7 @@
 @import url(./ContextMenu.css);
 @import url(./SimpleText.css);
 @import url(./TransformBox.css);
+@import url(./ComponentEditor.css);
 
 body{
     padding: 0;

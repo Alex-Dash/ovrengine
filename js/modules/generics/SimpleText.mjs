@@ -1,4 +1,5 @@
 import { ContextMenu } from "../ContextMenu.mjs"
+import { ComponentEditor } from "../ComponentEditor.mjs"
 
 class SimpleText {
     constructor(parent, content = "Sample Text\nWith new line") {
@@ -7,29 +8,58 @@ class SimpleText {
             return undefined
         }
         this.parent = parent
+        this.meta = {
+            name:"Simple Text",
+            group:"Generic",
+            credits:"Scrollable\nlist",
+            about:"Scrollable about tab\nnewline\nOwO"
+        }
         this.props = {
             content:{
+                tab:"Settings",
+                index: 0,
+                title: "Text Contents",
+                desc: "Text that would be rendered inside",
                 value: content,
                 type:"longtext",
                 onUpdate: (v)=>this.SetContent(v)
             },
             size:{
+                tab:"Settings",
+                index: 1,
+                title: "Font Size",
+                desc: "Font Size in pixels",
                 value: 30,
                 type: "int",
                 onUpdate: (v)=>this.SetSize(v)
             },
             color:{
+                tab:"Settings",
+                index: 2,
+                title: "Color",
+                desc: "Text color in #RRGGBB format",
                 value: "#FF00FF",
-                tyoe: "colorRGB",
+                type: "colorRGB",
                 onUpdate: (v)=>this.SetColor(v)
             },
             alpha:{
+                tab:"Settings",
+                index: 3,
+                title: "Opacity",
+                desc: "Text opacity. 1 - Fully opaque, 0 - Fully transparent",
                 value: 0.7,
                 type: "float",
                 onUpdate: (v)=>this.SetAlpha(v)
             },
         }
         this.context_menu_opts=[
+            {
+                name: "Edit",
+                isCheckBox: false,
+                func: () => {
+                    let ce = new ComponentEditor(this)
+                }
+            },
             {
                 name: "Delete",
                 isCheckBox: false,

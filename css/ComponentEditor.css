@@ -1,0 +1,97 @@
+.comp-editor{
+    --editor_x:30px;
+    --editor_y:30px;
+    --editor_z:100;
+    --editor_w:800px;
+    --editor_h:600px;
+
+}
+
+.comp-editor-body{
+    position: absolute;
+    width: var(--editor_w);
+    height: var(--editor_h);
+    z-index: var(--editor_z);
+    left: var(--editor_x);
+    top: var(--editor_y);
+    background-color: rgb(217, 225, 233);
+    color: black;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.editor-header{
+    display: flex;
+    flex-direction: row;
+}
+
+.editor-tabs{
+    display: flex;
+    flex-direction: row;
+    padding-inline: 10px;
+}
+
+.editor-tabs>div{
+    padding-block: 8px;
+    padding-inline: 15px;
+    background-color: rgb(197, 197, 197);
+    cursor: pointer;
+    transition: background-color 300ms cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.editor-tabs>div:hover{
+    background-color: rgb(221, 234, 243);
+}
+
+.editor-tabs>div:first-child{
+    border-radius: 15px 0 0 0;
+}
+.editor-tabs>div:last-child{
+    border-radius: 0 15px 0 0;
+}
+
+.editor-tabs>div[active="true"]{
+    background-color: rgb(172, 207, 223);
+}
+
+.editor-content{
+    display: flex;
+    flex-direction: column;
+}
+
+.tab-content{
+    display: none;
+    padding: 10px;
+}
+
+.tab-content[active="true"]{
+    display: flex;
+    flex-direction: column;
+}
+
+.tab-content>div{
+    margin-top: 8px;
+}
+
+.tab-content input {
+    margin-top: 5px;
+}
+
+.editor-footer{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    bottom: 0;
+}
+
+.inp-title{
+    color:rgb(0, 0, 0);
+    font-size: 1.2em;
+}
+
+.inp-desc{
+    color:rgba(0, 0, 0, 0.651);
+    font-style: italic;
+    font-size: 0.8em;
+}
