@@ -1,0 +1,74 @@
+.transform-box{
+    --box_x:40px;
+    --box_y:40px;
+    --box_z:0;
+    --box_w:800px;
+    --box_h:600px;
+    position: absolute;
+    left: var(--box_x);
+    top: var(--box_y);
+    z-index: var(--box_z);
+    width: var(--box_w);
+    height: var(--box_h);
+    padding: 0;
+    margin: 0;
+    cursor: move;
+    border: solid red 1px;
+}
+
+.transform-box .tb-controls{
+    --ctrl_size: 12px;
+    position: absolute;
+    background-color: rgb(255, 0, 0);
+    width: var(--ctrl_size);
+    height: var(--ctrl_size);
+}
+
+/* North control, move up */
+.transform-box .tb-controls[pos~="N"]{
+    top: calc(var(--ctrl_size) / -2);
+}
+
+/* South control, move down */
+.transform-box .tb-controls[pos~="S"]{
+    bottom: calc(var(--ctrl_size) / -2);
+}
+
+/* North-South control center */
+.transform-box .tb-controls[pos="N"], .transform-box .tb-controls[pos="S"]{
+    left: calc(var(--box_w) / 2 - calc( var(--ctrl_size) / 2));
+    cursor:s-resize;
+}
+
+/* West control, move left */
+.transform-box .tb-controls[pos~="W"]{
+    left: calc(var(--ctrl_size) / -2);
+}
+
+/* East control, move left */
+.transform-box .tb-controls[pos~="E"]{
+    right: calc(var(--ctrl_size) / -2);
+}
+
+/* West-Eash control center */
+.transform-box .tb-controls[pos="W"], .transform-box .tb-controls[pos="E"]{
+    top: calc(var(--box_h) / 2 - calc( var(--ctrl_size) / 2));
+    cursor:w-resize;
+}
+
+/* South-East and North-West specific */
+.transform-box .tb-controls[pos="S E"], .transform-box .tb-controls[pos="N W"]{
+    cursor: nw-resize;
+}
+
+/* South-West and North-East specific */
+.transform-box .tb-controls[pos="S W"], .transform-box .tb-controls[pos="N E"]{
+    cursor: ne-resize;
+}
+
+.transform-box .tb-content{
+    width: 100%;
+    height: 100%;
+    /* background-color: rgba(0, 255, 255, 0.226); */
+    overflow: hidden;
+}

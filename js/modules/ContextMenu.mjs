@@ -4,6 +4,8 @@ class ContextMenu {
             return undefined
         }
         this.options = options
+        this.orig_x = 0;
+        this.orig_y = 0;
         return this
     }
 
@@ -19,6 +21,8 @@ class ContextMenu {
 
         // prevent double instancing
         this.Close()
+        this.orig_x = x;
+        this.orig_y = y;
 
         if(!this?.options || this?.options?.length<1){
             console.warn("Context Menu Render(): No valid instance was created")
@@ -42,7 +46,7 @@ class ContextMenu {
             item.classList.add("ctx-option")
             item.innerText = opt?.name || "Unknown name"
             item.addEventListener("click", (m_ev)=>{
-                opt.func()
+                opt.func(m_ev)
                 this.Close()
             })
             menu_node.append(item)

@@ -1,12 +1,15 @@
 import { ContextMenu } from "./modules/ContextMenu.mjs";
 import { SimpleText } from "./modules/generics/SimpleText.mjs";
+import { TransformBox } from "./modules/TransformBox.mjs";
 
 let demo_menu = new ContextMenu([
     {
-        name: "Add",
+        name: "Add Simple Text",
         isCheckBox: false,
-        func: () => {
-            let new_txt = new SimpleText()
+        func: (event) => {
+            let tb = new TransformBox(event.clientX, event.clientY, 10, 300, 150)
+            let new_txt = new SimpleText(tb.DOM_inner)
+            tb.Render()
             new_txt.Render()
         }
     },
@@ -25,3 +28,4 @@ document.body.addEventListener("contextmenu", event=>{
     demo_menu.Render(event.clientX, event.clientY)
     console.log(event)
 })
+

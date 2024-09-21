@@ -29,8 +29,6 @@ class SimpleText {
                 onUpdate: (v)=>this.SetAlpha(v)
             },
         }
-        this.x = x
-        this.y = y
         this.context_menu_opts=[
             {
                 name: "Delete",
@@ -60,6 +58,11 @@ class SimpleText {
     }
 
     Remove(){
+        if(this.parent){
+            // double parent cuz of the content wrapper
+            this.parent.parentElement.remove()
+            return
+        }
         if(this.instance){
             this.instance.remove()
         }
@@ -94,7 +97,7 @@ class SimpleText {
 
         if(!this.menu){
             let menu = new ContextMenu(this.context_menu_opts)
-            root_node.addEventListener("contextmenu", (event)=>{
+            this.parent.addEventListener("contextmenu", (event)=>{
                 event.preventDefault();
                 event.stopPropagation()
                 menu.Render(event.clientX, event.clientY)
