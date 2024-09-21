@@ -69,7 +69,6 @@ class TransformBox {
         // with fast flicks
         let dx = event.movementX
         let dy = event.movementY
-        console.log(this.tgt_pos)
         switch (this.tgt_pos) {
             case "N E":
                 // Only E
@@ -123,7 +122,8 @@ class TransformBox {
         if(this.instance){
             return
         }
-        this.instance = document.body.prepend(this.DOM_root)
+        this.instance = this.DOM_root
+        document.body.prepend(this.instance)
     }
 
     Remove(){
