@@ -1,0 +1,13 @@
+.simple-text{
+    /* empty */
+}
+
+.simple-text-content{
+    --size: 20px;
+    --clr: #FF00FF;
+    --a: 1.0;
+    color: var(--clr);
+    opacity: var(--a);
+    font-size: var(--size);
+    margin-block: 0.1em;
+}
