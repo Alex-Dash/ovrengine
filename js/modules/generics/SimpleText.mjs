@@ -11,8 +11,8 @@ class SimpleText {
         this.meta = {
             name:"Simple Text",
             group:"Generic",
-            credits:"Scrollable\nlist",
-            about:"Scrollable about tab\nnewline\nOwO"
+            credits:"Part of the official library\n(git link maybe?)\n\nOwO",
+            about:"A generic editable text object"
         }
         this.props = {
             content:{

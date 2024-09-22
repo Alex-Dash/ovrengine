@@ -2,9 +2,8 @@
     --editor_x:30px;
     --editor_y:30px;
     --editor_z:100;
-    --editor_w:800px;
-    --editor_h:600px;
-
+    --editor_w:400px;
+    --editor_h:500px;
 }
 
 .comp-editor-body{
@@ -17,16 +16,23 @@
     background-color: rgb(217, 225, 233);
     color: black;
 
-    display: flex;
-    flex-direction: column;
+    display: grid; 
+    grid-auto-columns: 1fr; 
+    grid-template-rows: 2em 2em auto 2.5em; 
+    gap: 0px 0px; 
 }
 
 .editor-header{
+    grid-area: 1 / 1 / 2 / 2; 
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 .editor-tabs{
+    grid-area: 2 / 1 / 3 / 2;
     display: flex;
     flex-direction: row;
     padding-inline: 10px;
@@ -56,8 +62,10 @@
 }
 
 .editor-content{
+    grid-area: 3 / 1 / 4 / 2;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
 }
 
 .tab-content{
@@ -79,10 +87,14 @@
 }
 
 .editor-footer{
+    grid-area: 4 / 1 / 5 / 2;
     position: absolute;
+    bottom: 0;
     display: flex;
     flex-direction: row;
-    bottom: 0;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 .inp-title{
@@ -94,4 +106,8 @@
     color:rgba(0, 0, 0, 0.651);
     font-style: italic;
     font-size: 0.8em;
+}
+
+.editor-content textarea{
+    width: 100%;
 }

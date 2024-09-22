@@ -24,3 +24,21 @@ body{
     -ms-user-select: none; 
     -khtml-user-select: none; 
 }
+
+.btn {
+    cursor: pointer;
+    padding-inline: 1.5em;
+    padding-block: 0.5em;
+    background-color: aliceblue;
+    border-radius: 0.3em;
+    margin: 0.2em;
+}
+
+.btn-green {
+    background-image: linear-gradient( rgb(179, 250, 97), rgb(95, 133, 71) );
+    border: solid rgb(0, 80, 0) 2px;
+}
+
+.btn-green:hover{
+    background-image: linear-gradient( rgb(213, 255, 165), rgb(196, 255, 162) );
+}

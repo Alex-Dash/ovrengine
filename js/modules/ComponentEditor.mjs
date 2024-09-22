@@ -15,6 +15,7 @@ class ComponentEditor {
 
         let e_header = document.createElement("div")
         e_header.classList.add("editor-header")
+        e_header.classList.add("noselect")
         e_header.innerText = `Edit: ${component?.meta?.name || "Component"}`
         e_body.append(e_header)
 
@@ -30,6 +31,17 @@ class ComponentEditor {
         
         let e_footer = document.createElement("div")
         e_footer.classList.add("editor-footer")
+        e_footer.classList.add("noselect")
+        
+        let btn_save = document.createElement("div")
+        btn_save.classList.add("btn")
+        btn_save.classList.add("btn-green")
+        btn_save.innerText = "Save & Close"
+        btn_save.addEventListener("click", (event)=>{
+            this.Close()
+        })
+        e_footer.append(btn_save)
+
         e_body.append(e_footer)
 
         this.tablist = new Set()
@@ -50,6 +62,8 @@ class ComponentEditor {
             let tabname = this.tablist[tab_id]
             let is_active = tab_id == this.active_id
 
+            
+
             let tab = document.createElement("div")
             tab.addEventListener("click", (event)=>{
                 this._switch_tab(tab_id)
@@ -59,6 +73,16 @@ class ComponentEditor {
 
             let tab_content = document.createElement("div")
             tab_content.classList.add("tab-content")
+            if(tabname == "About"){
+                let cnt = document.createElement("p")
+                cnt.innerText = component?.meta?.about || ""
+                tab_content.append(cnt)
+            }
+            if(tabname == "Credits"){
+                let cnt = document.createElement("p")
+                cnt.innerText = component?.meta?.credits || ""
+                tab_content.append(cnt)
+            }
             if(is_active){
                 tab.setAttribute("active", "true")
                 tab_content.setAttribute("active", "true")
@@ -69,8 +93,15 @@ class ComponentEditor {
             e_content.append(tab_content)
         }
 
+
         this.DOM_root.append(e_body)
         document.body.prepend(this.DOM_root)
+    }
+
+    Close(){
+        if(this.DOM_root){
+            this.DOM_root.remove()
+        }
     }
 
     _populate_inputs(tab_id, parent){
@@ -89,6 +120,24 @@ class ComponentEditor {
                     element = document.createElement("input")
                     element.type = "number"
                     element.value = prop.value
+                    element.addEventListener("wheel",(e)=>{
+                        this._onscroll(e, element)
+                        if(typeof prop.onUpdate === "function"){
+                            prop.onUpdate(element.value)
+                        }
+                    })
+                    break;
+
+                case "longtext":
+                    element = document.createElement("textarea")
+                    element.rows = 5
+                    element.value = prop.value
+                    break;
+
+                case "colorRGB":
+                    element = document.createElement("input")
+                    element.type = "color"
+                    element.value = prop.value
                     break;
 
                 case "float":
@@ -96,6 +145,12 @@ class ComponentEditor {
                     element.type = "number"
                     element.step = 0.01
                     element.value = prop.value
+                    element.addEventListener("wheel",(e)=>{
+                        this._onscroll(e, element)
+                        if(typeof prop.onUpdate === "function"){
+                            prop.onUpdate(element.value)
+                        }
+                    })
                     break;
             
                 default:
@@ -146,6 +201,31 @@ class ComponentEditor {
             }
         }
         this.active_id = to_id
+    }
+
+    _onscroll(event, target){
+        let step = parseFloat(target.step+"" || "0.1")
+        if(Math.round(step) === step || target.step === "" || target.step === undefined){
+            step = 1
+        }
+        let val
+        try {
+            val = Number(target.value)
+        } catch (error) {
+            console.warn("Input scroll: Failed to parse a number", error)
+            return
+        }
+        if(isNaN(val) || val === undefined){
+            console.warn("Input scroll: invalid value for a number")
+            return
+        }
+
+        if(event.wheelDelta>0){
+            target.value = Math.round((val+step)*100000)/100000
+        } else {
+            target.value = Math.round((val-step)*100000)/100000
+        }
+        
     }
 }
 
