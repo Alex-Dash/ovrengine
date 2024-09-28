@@ -1,19 +1,24 @@
 import { ContextMenu } from "../ContextMenu.mjs"
 import { ComponentEditor } from "../ComponentEditor.mjs"
+import { UUIDv4 } from "../Utils.mjs"
+
 
 class SimpleText {
+    static meta = {
+        name:"Simple Text",
+        type_prefix:"98e27498-1a94",
+        group:"Generic",
+        credits:"Part of the official library\n(git link maybe?)\n\nOwO",
+        about:"A generic editable text object"
+    }
     constructor(parent, content = "Sample Text\nWith new line") {
         if(!parent){
             console.warn("SimpleText creation: Parent was not specified, unable to add element.")
             return undefined
         }
         this.parent = parent
-        this.meta = {
-            name:"Simple Text",
-            group:"Generic",
-            credits:"Part of the official library\n(git link maybe?)\n\nOwO",
-            about:"A generic editable text object"
-        }
+        this.meta = SimpleText.meta
+        this.meta.uuid = UUIDv4(this.meta.type_prefix)
         this.props = {
             content:{
                 tab:"Settings",
@@ -68,6 +73,7 @@ class SimpleText {
                 }
             },
         ]
+        window.OVRE.context.default.RegisterComponent(this)
         return this
     }
     SetContent(new_content = ""){
@@ -96,6 +102,7 @@ class SimpleText {
         if(this.instance){
             this.instance.remove()
         }
+        window.OVRE.context.default.UnregisterComponent(this)
     }
 
     Render(force_re_render = false){
@@ -143,4 +150,4 @@ class SimpleText {
     
 }
 
-export { SimpleText }
+export default SimpleText
