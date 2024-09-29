@@ -3,6 +3,7 @@ class ContextMap {
     constructor(){
         this.type_prefix_map = new Map()
         this.uuid_map = new Map()
+        return this
     }
 
     _getUniqueNamesAsSet(type_prefix = "00000000-0000"){
@@ -80,6 +81,15 @@ class ContextMap {
         
         for (const type_prefix of this.type_prefix_map.keys()) {
             let collection_info = this.type_prefix_map.get(type_prefix)
+            ret[type_prefix] = {
+                typename: collection_info.typename,
+                typegroup: collection_info.typegroup,
+                components: []
+            }
+            for (const component_uuid of this.type_prefix_map.get(type_prefix).components.keys()) {
+                let component = this.type_prefix_map.get(type_prefix).components.get(component_uuid)
+                ret[type_prefix].push(component)
+            }
         }
 
         return ret

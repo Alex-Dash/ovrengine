@@ -95,13 +95,20 @@ class ComponentEditor {
 
 
         this.DOM_root.append(e_body)
+
+        if(window.OVRE.current_editor){
+            window.OVRE.current_editor.Close()
+        }
+        
         document.body.prepend(this.DOM_root)
+        window.OVRE.current_editor = this
     }
 
     Close(){
         if(this.DOM_root){
             this.DOM_root.remove()
         }
+        window.OVRE.current_editor = undefined
     }
 
     _populate_inputs(tab_id, parent){
