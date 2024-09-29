@@ -7,7 +7,7 @@ class ComponentEditor {
         this.props = component.props
         this.DOM_root = document.createElement("div")
         this.DOM_root.classList.add("comp-editor")
-        
+        this.target = component
         this.active_id = 0
 
         let e_body = document.createElement("div")
@@ -99,7 +99,7 @@ class ComponentEditor {
         if(window.OVRE.current_editor){
             window.OVRE.current_editor.Close()
         }
-        
+
         document.body.prepend(this.DOM_root)
         window.OVRE.current_editor = this
     }

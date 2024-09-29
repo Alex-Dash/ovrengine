@@ -46,7 +46,7 @@ function UUIDv4(a,b,c) {
     a_ch = `${a_ch.substring(0,8)}-${a_ch.substring(8)}`
     let b_ch = hexReformat(b, 3)
     let c_ch = hexReformat(c, 15)
-    c_ch = `${a_ch.substring(0,3)}-${a_ch.substring(3)}`
+    c_ch = `${c_ch.substring(0,3)}-${c_ch.substring(3)}`
 
     return `${a_ch}-${M}${b_ch}-${N}${c_ch}`
 }

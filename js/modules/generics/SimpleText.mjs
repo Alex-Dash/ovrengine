@@ -17,7 +17,10 @@ class SimpleText {
             return undefined
         }
         this.parent = parent
-        this.meta = SimpleText.meta
+        
+        // prevent mutation of static props
+        this.meta = JSON.parse(JSON.stringify(SimpleText.meta))
+        
         this.meta.uuid = UUIDv4(this.meta.type_prefix)
         this.props = {
             content:{
@@ -97,12 +100,11 @@ class SimpleText {
         if(this.parent){
             // double parent cuz of the content wrapper
             this.parent.parentElement.remove()
-            return
         }
         if(this.instance){
             this.instance.remove()
         }
-        window.OVRE.context.default.UnregisterComponent(this)
+        window.OVRE.context.default.UnRegisterComponent(this)
     }
 
     Render(force_re_render = false){

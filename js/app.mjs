@@ -15,9 +15,9 @@ async function loadLibs(){
     for (const lib of default_library) {
         try {
             let module = await import(lib)
-            console.log(module.default)
             let module_name = module.default.meta.name.replaceAll(" ","")
             window.OVRE.default[module_name] = module.default
+            console.log(`Component loader: Loaded ${module_name} as window.OVRE.default.${module_name}`)
         } catch (error) {
             console.error("Failed to load module: ", error)
         }

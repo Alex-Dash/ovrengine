@@ -9,11 +9,11 @@ class ContextMap {
     _getUniqueNamesAsSet(type_prefix = "00000000-0000"){
         let s = new Set()
         let prefix_info = this.type_prefix_map.get(type_prefix)
-        if(!type_prefix){
+        if(!type_prefix || !prefix_info){
             return s
         }
         for (const component of prefix_info.components.values()) {
-            s.add(component.unique_name)
+            s.add(component.meta.unique_name)
         }
 
         return s
@@ -52,8 +52,12 @@ class ContextMap {
     }
 
     UnRegisterComponent(component){
-        let uuid_unreg_success = this.uuid_map.delete(component.uuid)
-        let c_prefix = component.type_prefix || "00000000-0000"
+        let uuid_unreg_success = this.uuid_map.delete(component.meta.uuid)
+        let c_prefix = component.meta.type_prefix || "00000000-0000"
+
+        if(window.OVRE?.current_editor?.target === component){
+            window.OVRE.current_editor.Close()
+        }
 
         if(!uuid_unreg_success){
             console.warn("Failed to unregister component by UUID: UUID does not exist")
@@ -63,7 +67,7 @@ class ContextMap {
             console.warn("Failed to unregister component in type category by UUID: Category does not exist")
             return
         }
-        let type_unreg_success = this.type_prefix_map.get(c_prefix).components.delete(component.uuid)
+        let type_unreg_success = this.type_prefix_map.get(c_prefix).components.delete(component.meta.uuid)
 
         if(!type_unreg_success){
             console.warn("Failed to unregister component in type category by UUID: UUID in category does not exist")

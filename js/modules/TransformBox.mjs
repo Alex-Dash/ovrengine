@@ -27,6 +27,7 @@ class TransformBox {
         this.md_flag = false
         this.tgt_pos = undefined
         this.DOM_root.addEventListener("mousedown", (e)=>{
+            if(e.buttons !== 1) return
             e.stopPropagation();
             e.preventDefault();
             this.md_flag=true;
